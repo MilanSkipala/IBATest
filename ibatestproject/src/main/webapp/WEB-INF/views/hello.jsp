@@ -9,7 +9,7 @@
         <title>Hello IBA!</title>
     </head>
     <body>
-        <c:forEach begin="1" end="${param.x}">
+        <c:forEach begin="1" end="${var}">
             <h1>Hello IBA!</h1>
         </c:forEach>
     </body>
