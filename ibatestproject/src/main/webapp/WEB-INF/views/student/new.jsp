@@ -21,21 +21,21 @@
         <h1>New student</h1>
             <form:form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/student/create" modelAttribute="newStudent">
                 <legend>Add new student in the system.</legend>
-                <div class="form-group">
+                <div class="form-group ${firstName_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="firstName">Name</form:label>
                     <div class="col-sm-4">
                         <form:input cssClass="form-control" placeholder="First name" path="firstName" />
                         <form:errors path="firstName" cssClass="help-block"></form:errors>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group ${surname_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="surname">Surname</form:label>
                     <div class="col-sm-4">
                         <form:input cssClass="form-control" placeholder="Surname" path="surname"/>
                         <form:errors path="surname" cssClass="help-block"></form:errors>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group ${dateOfBirth_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="dateOfBirth">Date of birth</form:label>
                     <div class="col-sm-4">
                         <form:input cssClass="form-control" placeholder="Date of birth" path="dateOfBirth"/>
@@ -56,7 +56,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary">Register member</button>
+                        <button type="submit" class="btn btn-primary">Add student</button>
                     </div>
                 </div>
             </form:form>

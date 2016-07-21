@@ -9,9 +9,12 @@ import cz.ibacz.test.ibatestproject.Gender;
 import cz.ibacz.test.ibatestproject.model.Student;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.validation.Valid;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +33,7 @@ public class StudentController {
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
@@ -47,8 +50,15 @@ public class StudentController {
     }
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createStudent(@ModelAttribute("newStudent") Student student, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String createStudent(@Valid @ModelAttribute("newStudent") Student student, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "student/new";
+        }
         redirectAttributes.addFlashAttribute("student", student);
+        redirectAttributes.addFlashAttribute("alert_info", "Student " + student.getSurname() + " was created");
         return "redirect:" + uriBuilder.path("/student/detail").toUriString();
     }
     

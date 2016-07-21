@@ -7,14 +7,33 @@ package cz.ibacz.test.ibatestproject.model;
 
 import cz.ibacz.test.ibatestproject.Gender;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Length.List;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author Milan
  */
 public class Student {
+    @List({
+        @Length(min = 1, message = "The first name must not be empty"),
+        @Length(max = 60, message = "The first name must be shorter than 60 characters")
+    })
     private String firstName;
+    
+    @List({
+        @Length(min = 1, message = "The first name must not be empty"),
+        @Length(max = 60, message = "The first name must be shorter than 60 characters")
+    })
     private String surname;
+
+    @NotNull(message = "Must not be empty")
+    @Past(message = "The date of birth has to be in the past")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateOfBirth;
     private Gender gender;
    
