@@ -7,8 +7,8 @@
 <c:set var="title" value="${\"New student\"}"/>
 <my:pagetemplate title="${title}">
     <jsp:attribute name="body">
-        <form:form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/student/create" modelAttribute="newStudent">
-                <legend>Add new student in the system.</legend>
+        <form:form class="form-horizontal" action="${pageContext.request.contextPath}/student/editSave/${student.id}" modelAttribute="student">
+                <legend>Edit student details.</legend>
                 <div class="form-group ${firstName_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="firstName">Name</form:label>
                     <div class="col-sm-4">
@@ -44,9 +44,11 @@
 
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary">Add student</button>
+                        <button type="submit" class="btn btn-primary">Save details</button>
+                        <a href="${pageContext.request.contextPath}/student/list" class="btn btn-default">Cancel</a>
                     </div>
                 </div>
             </form:form>
     </jsp:attribute>
 </my:pagetemplate>
+

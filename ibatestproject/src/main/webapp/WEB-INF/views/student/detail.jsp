@@ -4,27 +4,20 @@
     Author     : Milan
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="true" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Student details</title>
-        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/journal/bootstrap.min.css" media="screen">
-    </head>
-    <body>
-        <div class="container-fluid" id="content">
-        <h1>Student ${student.firstName} ${student.surname}</h1>
+
+<c:set var="title" value="${\"Student details\"}"/>
+<my:pagetemplate title="${title}">
+    <jsp:attribute name="body">
         <table>
             <tr><td>First name</td><td>${student.firstName}</td></tr>
             <tr><td>Surname</td><td>${student.surname}</td></tr>
             <tr><td>Date of birth</td><td>${student.dateOfBirth.date.toString()}. ${student.dateOfBirth.month + 1}. ${student.dateOfBirth.year.toString()}</td></tr>
             <tr><td>Gender</td><td>${student.gender.toString()}</td></tr>
         </table>
-        </div>
-    </body>
-</html>
+        <a href="${pageContext.request.contextPath}/student/edit/${student.id}" class="btn-sm btn-primary">Edit</a>
+    </jsp:attribute>
+</my:pagetemplate>

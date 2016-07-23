@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "cz.ibacz.test.ibatestproject.controllers" })
+@ComponentScan({ "cz.ibacz.test.ibatestproject" })
 public class SpringConfig extends WebMvcConfigurerAdapter {
     @Bean
     public InternalResourceViewResolver viewResolver() {

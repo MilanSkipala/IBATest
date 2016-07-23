@@ -19,6 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Milan
  */
 public class Student {
+    private Long id;
+
+    
     @List({
         @Length(min = 1, message = "The first name must not be empty"),
         @Length(max = 60, message = "The first name must be shorter than 60 characters")
@@ -72,4 +75,12 @@ public class Student {
         this.gender = gender;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        if (this.id == null)
+            this.id = id;
+    }
 }
