@@ -21,12 +21,23 @@
         <title><c:out value="${title}"/></title>
         <!-- Bootstrap -->        
         <link rel="stylesheet" type="text/css" href="https://bootswatch.com/journal/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"/>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+        
+        <script>
+            $( function() {
+                $( "#datepicker" ).datepicker({dateFormat: "dd.mm.yy"});
+            } );
+        </script>
         <jsp:invoke fragment="head"/>
     </head>
     <body>
@@ -83,10 +94,36 @@
             <jsp:invoke fragment="body"/>
         </div>
         <!--footer can be placed here--> 
-        
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script>
+                $("#studentForm").validate({
+                            rules: {
+                                    firstName: {
+                                            required: true,
+                                            minlength: 1,
+                                            maxlength: 60
+                                    },
+                                    surname: {
+                                            required: true,
+                                            minlength: 1,
+                                            maxlength: 60
+                                    },
+                                    dateOfBirth: "required"
+                            },
+                            messages: {
+                                    firstName: {
+                                            required: "Please enter a first name",
+                                            minlength: "First name must consist of at least 1 character",
+                                            maxlength: "First name must consist of at most 60 characters"
+                                    },
+                                    surname: {
+                                            required: "Please enter a first name",
+                                            minlength: "First name must consist of at least 1 character",
+                                            maxlength: "First name must consist of at most 60 characters"
+                                    },
+                                    dateOfBirth: "Please enter a date of birth"
+                            }
+                    });
+        </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </body>
 </html>

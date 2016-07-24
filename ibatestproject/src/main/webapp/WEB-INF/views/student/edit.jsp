@@ -4,29 +4,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:set var="title" value="${\"New student\"}"/>
+<c:set var="title" value="${\"Edit student\"}"/>
 <my:pagetemplate title="${title}">
     <jsp:attribute name="body">
-        <form:form class="form-horizontal" action="${pageContext.request.contextPath}/student/editSave/${student.id}" modelAttribute="student">
+        <form:form class="form-horizontal" action="${pageContext.request.contextPath}/student/editSave/${student.id}" modelAttribute="student" id="studentForm">
                 <legend>Edit student details.</legend>
                 <div class="form-group ${firstName_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="firstName">Name</form:label>
                     <div class="col-sm-4">
-                        <form:input cssClass="form-control" placeholder="First name" path="firstName" />
+                        <form:input cssClass="form-control" placeholder="First name" path="firstName" type="text"/>
                         <form:errors path="firstName" cssClass="help-block"></form:errors>
                     </div>
                 </div>
                 <div class="form-group ${surname_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="surname">Surname</form:label>
                     <div class="col-sm-4">
-                        <form:input cssClass="form-control" placeholder="Surname" path="surname"/>
+                        <form:input cssClass="form-control" placeholder="Surname" path="surname" type="text"/>
                         <form:errors path="surname" cssClass="help-block"></form:errors>
                     </div>
                 </div>
                 <div class="form-group ${dateOfBirth_error?'has-error':''}">
                     <form:label cssClass="col-sm-2 control-label" path="dateOfBirth">Date of birth</form:label>
                     <div class="col-sm-4">
-                        <form:input cssClass="form-control" placeholder="Date of birth" path="dateOfBirth"/>
+                        <form:input cssClass="form-control" placeholder="Date of birth" path="dateOfBirth" id="datepicker" type="text"/>
                         <form:errors path="dateOfBirth" cssClass="help-block"></form:errors>
                     </div>
                 </div>

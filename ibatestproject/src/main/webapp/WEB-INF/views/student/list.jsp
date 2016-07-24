@@ -28,7 +28,7 @@
                     <tr>
                         <td><c:out value="${student.firstName}"/></td>
                         <td><c:out value="${student.surname}"/></td>
-                        <td><c:out value="${student.dateOfBirth.date.toString()}. ${student.dateOfBirth.month + 1}. ${student.dateOfBirth.year.toString()}"/></td>
+                        <td><fmt:formatDate value="${student.dateOfBirth}" type="DATE" pattern="dd.MM.yyyy"/></td>
                         <td><c:out value="${student.gender}"/></td>
                         <td>
                             <a href="${pageContext.request.contextPath}/student/detail/${student.id}" class="btn-sm btn-default">Detail</a>
