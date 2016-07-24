@@ -37,7 +37,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class StudentController {
     @Autowired
     @Resource(name = "studentServiceDbImpl")
-    StudentService studentService;
+    private StudentService studentService;
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
