@@ -6,6 +6,7 @@
 package cz.ibacz.test.ibatestproject.config;
 
 import cz.ibacz.test.ibatestproject.model.Student;
+import cz.ibacz.test.ibatestproject.service.StudentService;
 import javax.sql.DataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
