@@ -8,8 +8,10 @@ package cz.ibacz.test.ibatestproject.controllers;
 import cz.ibacz.test.ibatestproject.Gender;
 import cz.ibacz.test.ibatestproject.model.Student;
 import cz.ibacz.test.ibatestproject.service.StudentService;
+import cz.ibacz.test.ibatestproject.service.StudentServiceDbImpl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -34,6 +36,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
+    @Resource(name = "studentServiceDbImpl")
     StudentService studentService;
     
     @InitBinder
@@ -45,7 +48,7 @@ public class StudentController {
     
     @RequestMapping("")
     public String defaultPage(Model model) {
-        return "student/list";
+        return showStudents(model);
     }
     
     @RequestMapping(value = "/new", method = RequestMethod.GET)

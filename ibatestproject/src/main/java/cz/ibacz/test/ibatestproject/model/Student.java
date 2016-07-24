@@ -7,18 +7,24 @@ package cz.ibacz.test.ibatestproject.model;
 
 import cz.ibacz.test.ibatestproject.Gender;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Length.List;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author Milan
  */
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     
@@ -26,15 +32,17 @@ public class Student {
         @Length(min = 1, message = "The first name must not be empty"),
         @Length(max = 60, message = "The first name must be shorter than 60 characters")
     })
+    @NotNull
     private String firstName;
     
     @List({
         @Length(min = 1, message = "The first name must not be empty"),
         @Length(max = 60, message = "The first name must be shorter than 60 characters")
     })
+    @NotNull
     private String surname;
 
-    @NotNull(message = "Must not be empty")
+    @NotNull(message = "Date of birth must not be empty")
     @Past(message = "The date of birth has to be in the past")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateOfBirth;

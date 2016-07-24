@@ -7,25 +7,25 @@ package cz.ibacz.test.ibatestproject.service;
 
 import cz.ibacz.test.ibatestproject.model.Student;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Milan
  */
-@Service
-public class StudentServiceImpl implements StudentService {
-    private Map<Long, Student> students;
-    private Long id;
-
-    public StudentServiceImpl() {
-        students = new HashMap<>();
-        id = new Long(1);
-    }
+@Service("studentServiceDbImpl")
+@Transactional
+@Repository
+public class StudentServiceDbImpl implements StudentService {
+    
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public Long newStudent(Student newStudent) {
@@ -34,16 +34,14 @@ public class StudentServiceImpl implements StudentService {
         Objects.requireNonNull(newStudent.getFirstName(), "Student with null first name can't be created.");
         Objects.requireNonNull(newStudent.getSurname(), "Student with null surname can't be created.");
         Objects.requireNonNull(newStudent.getGender(), "Student with null gender can't be created.");
-        students.put(id, newStudent);
-        newStudent.setId(id);
-        id++;
-        return id - 1;
+        em.persist(newStudent);
+        return newStudent.getId();
     }
 
     @Override
     public Student findStudentById(Long id) {
         Objects.requireNonNull(id, "Student with null id can't be found");
-        Student s = students.get(id);
+        Student s = em.find(Student.class, id);
         if (s == null)
             throw new NoSuchElementException("Student was not found");
         return s;
@@ -51,14 +49,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Collection<Student> getAllStudents() {
-        return students.values();
+        return em.createQuery("select s from Student s", Student.class).getResultList();
     }
 
     @Override
     public void removeStudent(Student toRemove) {
         Objects.requireNonNull(toRemove, "Null student can't be removed.");
         Objects.requireNonNull(toRemove.getDateOfBirth(), "Student with null id can't be removed.");
-        students.remove(toRemove.getId());
+        em.remove(toRemove);
     }
 
     @Override
@@ -68,7 +66,8 @@ public class StudentServiceImpl implements StudentService {
         Objects.requireNonNull(newStudent.getFirstName(), "Student with null first name can't be created.");
         Objects.requireNonNull(newStudent.getSurname(), "Student with null surname can't be created.");
         Objects.requireNonNull(newStudent.getGender(), "Student with null gender can't be created.");
-        students.put(newStudent.getId(), newStudent);
+        em.merge(newStudent);
     }
+    
     
 }
